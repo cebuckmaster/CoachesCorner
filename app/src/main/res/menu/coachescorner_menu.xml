@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/cc_menu_settings"
+        android:title="@string/cc_menu_team_settings"
+        app:showAsAction="never" />
+    <item android:id="@+id/cc_menu_player"
+        android:title="@string/cc_menu_players"
+        app:showAsAction="never" />
+    <item android:id="@+id/cc_menu_reset_all"
+        android:title="@string/cc_reset_all"
+        app:showAsAction="never"/>
+
+</menu>

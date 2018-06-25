@@ -1,0 +1,135 @@
+<resources>
+    <string name="app_name">Coaches Corner</string>
+
+    <string name="settings_name">Settings</string>
+    <string name="roster_name">Team Roster</string>
+    <string name="add_player_name">Add Player</string>
+    <string name="player_details_name">Player Details</string>
+    <string name="add_a_game_name">Add A Game</string>
+    <string name="game_day_name">Game Day</string>
+    <string name="edit_game_name">Edit Game Details</string>
+
+    <string name="cc_menu_team_settings">Team Settings</string>
+    <string name="cc_menu_players">Roster</string>
+    <string name="cc_reset_all">Reset All</string>
+    <string name="cc_add_game_text">Click on the add game button</string>
+
+    <string name="opponent_scoring">Opponents Scoring</string>
+    <string name="game_timer">Game Timer</string>
+    <string name="start_timer">Start Timer</string>
+    <string name="sub_timer">Sub Timer</string>
+
+    <string name="roster_add_player_msg">Click on the add Player ICON</string>
+    <string name="win_label">WIN</string>
+    <string name="home_label">Home</string>
+
+    <string name="date_of_game">Date of Game</string>
+    <string name="time_of_game">Time of Game</string>
+    <string name="opp_name">Opponent Name</string>
+    <string name="home_or_away_msg">Are you Home or Away</string>
+    <string name="notes_label">Notes</string>
+    <string name="save_button">Save</string>
+
+    <string name="coaches_label">Coaches</string>
+    <string name="team_label_html">Team</string>
+    <string name="score_label_html">Score</string>
+
+    <string name="take_pic">Take Picture</string>
+    <string name="player_first_name_label">Players First Name</string>
+    <string name="player_last_name_label">Players Last Name</string>
+    <string name="player_number_label">Players Number</string>
+
+    <string name="gameformat_prompt">Select a Game format</string>
+    <string name="half_quarter_prompt">Select One</string>
+    <string name="age_group_prompt">Select Age Group</string>
+    <string name="delete">DELETE</string>
+
+    <string name="team_name_label">Enter Your Team Name</string>
+    <string name="team_name_hint">Team Name</string>
+
+    <string name="coaches_name_label">Coaches Name:</string>
+    <string name="assistone_coach_label">Assistant Coache 1:</string>
+    <string name="assisttwo_coach_label">Assistant Coache 2:</string>
+    <string name="age_group_label">Age Group</string>
+    <string name="game_format_label">Game Format</string>
+    <string name="game_time_label">Game Time (minutes)</string>
+    <string name="half_quarter_label">per half/quarter</string>
+    <string name="halves_quarters_label">Halves or Quarters</string>
+    <string name="sub_label">Substitute every (min)</string>
+
+    <string name="number_label">Number</string>
+    <string name="totals_label">Totals</string>
+    <string name="player_name_label">Player Name</string>
+    <string name="goals_label">Goals</string>
+    <string name="assists_label">Assists</string>
+    <string name="saves_label">Saves</string>
+
+    <string name="total_goals_label">Total Goals</string>
+    <string name="total_assists_label">Total Assists</string>
+    <string name="total_saves_label">Total Saves</string>
+
+    <string-array name="gameformat">
+        <item>@string/u6_under_game_formation</item>
+        <item>5v5</item>
+        <item>@string/u8_under_game_formation</item>
+        <item>7v7</item>
+        <item>@string/u11_under_game_formation</item>
+        <item>9v9</item>
+        <item>@string/u13_under_game_formation</item>
+        <item>@string/u16_under_game_formation</item>
+    </string-array>
+
+    <string-array name="half_quarter">
+        <item>@string/game_half</item>
+        <item>@string/game_quarter</item>
+    </string-array>
+
+    <string name="game_half">Half</string>
+    <string name="game_quarter">Quarter</string>
+
+    <string-array name="age_group">
+        <item>U3</item>
+        <item>U4</item>
+        <item>U5</item>
+        <item>U6</item>
+        <item>U7</item>
+        <item>U8</item>
+        <item>U9</item>
+        <item>U10</item>
+        <item>U11</item>
+        <item>U12</item>
+        <item>U13</item>
+        <item>U14</item>
+        <item>U15</item>
+        <item>U16</item>
+    </string-array>
+
+    <string-array name="home_or_away">
+        <item>Home</item>
+        <item>Away</item>
+    </string-array>
+
+    <string name="u6_under_game_formation">4v4</string>
+    <string name="u8_under_game_formation">6v6</string>
+    <string name="u11_under_game_formation">8v8</string>
+    <string name="u13_under_game_formation">10v10</string>
+    <string name="u16_under_game_formation">11v11</string>
+
+    <string name="gd_reset_timer">Reset Timer</string>
+    <string name="gd_share_score_card">Share Score Card</string>
+    <string name="gd_edit_game">Edit Game Details</string>
+    <string name="gd_field_location">Field Location</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_activity_field_location">Map</string>
+
+
+
+
+
+    <!-- Widget Strings -->
+    <string name="no_schedule_found">No Game Schedule Found</string>
+    <string name="no_schedule">Please enter in a game schedule in the Coaches Corner App</string>
+    <string name="vs_label">vs</string>
+
+</resources>

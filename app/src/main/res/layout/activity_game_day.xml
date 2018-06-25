@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.coachescorner.ui.GameDayActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/score_card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <View
+            android:id="@+id/view_score_card"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@color/bg_color" />
+
+        <TextView
+            android:id="@+id/tv_game_day_away_team_name"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text=""
+            style="@style/GameDayScoreCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_game_day_away_team_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginStart="8dp"
+            style="@style/GameDayScoreCard"
+            app:layout_constraintBottom_toTopOf="@id/tv_game_day_away_team_name"
+            app:layout_constraintLeft_toRightOf="@id/tv_game_day_away_team_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_game_day_away_team_name" />
+
+        <TextView
+            android:id="@+id/tv_game_day_home_team_name"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            style="@style/GameDayScoreCard"
+            app:layout_constraintLeft_toLeftOf="@id/tv_game_day_away_team_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_game_day_away_team_name" />
+
+        <TextView
+            android:id="@+id/tv_game_day_home_team_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text=""
+            style="@style/GameDayScoreCard"
+            app:layout_constraintBottom_toBottomOf="@id/tv_game_day_home_team_name"
+            app:layout_constraintLeft_toRightOf="@id/tv_game_day_home_team_name" />
+
+
+        <TextView
+            android:id="@+id/tv_opponent_incrementer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/opponent_scoring"
+            style="@style/GameDayScoreCard"
+            app:layout_constraintLeft_toRightOf="@id/tv_game_day_home_team_score"
+            app:layout_constraintRight_toLeftOf="@id/tv_game_day_home_team_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_game_day_home_team_name" />
+
+        <LinearLayout
+            android:id="@+id/ll_opponent_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:elevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_opponent_incrementer"
+            app:layout_constraintLeft_toLeftOf="@id/tv_opponent_incrementer"
+            app:layout_constraintRight_toRightOf="@id/tv_opponent_incrementer">
+
+            <ImageButton
+                android:id="@+id/ib_increase_opponent_score"
+                android:layout_width="@dimen/plus_minus_icon"
+                android:layout_height="@dimen/plus_minus_icon"
+                android:layout_marginStart="16dp"
+                android:elevation="8dp"
+                android:background="@drawable/green_plus"/>
+
+            <ImageButton
+                android:id="@+id/ib_decrease_opponent_score"
+                android:layout_width="@dimen/plus_minus_icon"
+                android:layout_height="@dimen/plus_minus_icon"
+                android:layout_marginStart="24dp"
+                android:elevation="8dp"
+                android:background="@drawable/green_minus"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_timer_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_timer"
+            style="@style/GameDayScoreCard"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="@id/tv_game_day_away_team_score"
+            app:layout_constraintLeft_toRightOf="@id/tv_game_day_away_team_score"
+            app:layout_constraintRight_toLeftOf="@id/tv_timer" />
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginStart="16dp"
+            style="@style/GameDayScoreCard"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_timer_label"
+            app:layout_constraintLeft_toRightOf="@id/tv_timer_label"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btn_start_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/start_timer"
+            android:background="@color/colorPrimary"
+            android:textSize="@dimen/game_day_text_size"
+            android:padding="8dp"
+            android:elevation="8dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            app:layout_constraintLeft_toRightOf="@id/tv_timer"
+            app:layout_constraintRight_toLeftOf="@id/tv_timer_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_timer_label" />
+
+        <TextView
+            android:id="@+id/tv_sub_next_line_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/sub_timer"
+            style="@style/GameDayScoreCard"
+            app:layout_constraintLeft_toRightOf="@+id/btn_start_timer"
+            app:layout_constraintRight_toLeftOf="@+id/btn_start_timer"
+            app:layout_constraintTop_toBottomOf="@+id/btn_start_timer" />
+
+        <TextView
+            android:id="@+id/tv_sub_timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            style="@style/GameDayScoreCard"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_sub_next_line_label"
+            app:layout_constraintRight_toRightOf="@+id/tv_sub_next_line_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_next_line_label" />
+
+        <View
+            android:id="@+id/view_score_card_divider"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/view_score_card" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_scorecard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/score_card_layout" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/game_day_adView"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+
+
+</RelativeLayout>

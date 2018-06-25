@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.coachescorner">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/score_card"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_score_card_background"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.CoachesCornerActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/settings_name"
+            android:parentActivityName=".ui.CoachesCornerActivity" />
+        <activity
+            android:name=".ui.RosterActivity"
+            android:label="@string/roster_name"
+            android:parentActivityName=".ui.CoachesCornerActivity" />
+        <activity
+            android:name=".ui.PlayerAddActivity"
+            android:label="@string/add_player_name"
+            android:parentActivityName=".ui.RosterActivity" />
+        <activity
+            android:name=".ui.PlayerDetailActivity"
+            android:label="@string/player_details_name"
+            android:parentActivityName=".ui.RosterActivity" />
+        <activity
+            android:name=".ui.GameAddActivity"
+            android:label="@string/add_a_game_name"
+            android:parentActivityName=".ui.CoachesCornerActivity" />
+        <activity
+            android:name=".ui.GameDayActivity"
+            android:label="@string/game_day_name"
+            android:parentActivityName=".ui.CoachesCornerActivity" />
+        <activity
+            android:name=".ui.FieldLocationActivity"
+            android:label="@string/title_activity_field_location"
+            android:parentActivityName=".ui.GameDayActivity" />
+        <activity
+            android:name=".ui.EditGameActivity"
+            android:label="@string/edit_game_name"
+            android:parentActivityName=".ui.GameDayActivity"/>
+
+        <provider
+            android:name=".data.CoachesCornerProvider"
+            android:authorities="com.example.android.coachescorner"
+            android:exported="false" />
+
+        <receiver android:name=".widget.GameScheduleWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/game_schedule_widget_provider_info" />
+        </receiver>
+
+        <service android:name=".widget.GameScheduleWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+    </application>
+
+</manifest>

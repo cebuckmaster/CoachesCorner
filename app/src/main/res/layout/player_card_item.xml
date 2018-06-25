@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/player_card_view_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_row_background">
+
+        <ImageView
+            android:id="@+id/player_card_delete_icon"
+            android:layout_width="@dimen/ic_delete"
+            android:layout_height="@dimen/ic_delete"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/padd_10"
+            android:src="@drawable/trash_can_white_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/padd_10"
+            android:layout_toRightOf="@+id/player_card_delete_icon"
+            android:text="@string/delete"
+            android:textColor="@color/colorText"
+            android:textSize="13sp"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/player_card_view_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryLight"
+        android:padding="@dimen/padd_10">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_player_picture"
+                android:layout_width="@dimen/thumbnail"
+                android:layout_height="@dimen/thumbnail"
+                android:src="@drawable/player_dribbling"
+                app:civ_circle_background_color="@color/colorPrimaryLight"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorAccent"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_player_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text=""
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintBottom_toTopOf="@id/civ_player_picture"
+                app:layout_constraintLeft_toRightOf="@id/civ_player_picture"
+                app:layout_constraintTop_toBottomOf="@id/civ_player_picture"
+                app:layout_constraintVertical_bias="0.609" />
+
+            <TextView
+                android:id="@+id/tv_player_num_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/number_label"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintTop_toBottomOf="@id/tv_player_name"
+                app:layout_constraintLeft_toLeftOf="@id/tv_player_name" />
+
+            <TextView
+                android:id="@+id/tv_player_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintLeft_toRightOf="@id/tv_player_num_label"
+                app:layout_constraintBottom_toBottomOf="@id/tv_player_num_label"/>
+
+            <TextView
+                android:id="@+id/tv_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/totals_label"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginEnd="32dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_goal_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_label"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintRight_toLeftOf="@id/tv_total_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_total_label"/>
+
+            <TextView
+                android:id="@+id/tv_goals_scored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintRight_toRightOf="@id/tv_total_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_total_label"/>
+
+            <TextView
+                android:id="@+id/tv_assist_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/assists_label"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintRight_toRightOf="@id/tv_goal_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_goal_label"/>
+
+            <TextView
+                android:id="@+id/tv_assits_made"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintTop_toBottomOf="@id/tv_goals_scored"
+                app:layout_constraintRight_toRightOf="@id/tv_goals_scored"/>
+
+            <TextView
+                android:id="@+id/tv_saves_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/saves_label"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintTop_toBottomOf="@id/tv_assist_label"
+                app:layout_constraintRight_toRightOf="@id/tv_assist_label"/>
+
+            <TextView
+                android:id="@+id/tv_saves_made"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorPrimaryText"
+                app:layout_constraintTop_toBottomOf="@id/tv_assits_made"
+                app:layout_constraintRight_toRightOf="@id/tv_assits_made"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>
