@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.coachescorner.R;
@@ -23,7 +22,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by cebuc on 5/27/2018.
+ * ScoreCardAdapter used to display Player information during Game Day RecyclerView
  */
 
 public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardAdapter.ScoreCardViewHolder> {
@@ -94,7 +93,8 @@ public class ScoreCardAdapter extends RecyclerView.Adapter<ScoreCardAdapter.Scor
                 Log.e(ScoreCardAdapter.class.getSimpleName(), "Error trying to load Pic - " + e);
             }
         }
-        holder.mPlayerName.setText(mPlayers.get(position).getPlayerFirstName() + " " + mPlayers.get(position).getPlayerLastName());
+        String playerFullName = mPlayers.get(position).getPlayerFirstName() + " " + mPlayers.get(position).getPlayerLastName();
+        holder.mPlayerName.setText(playerFullName);
         holder.mPlayerNum.setText(mPlayers.get(position).getPlayerNum());
         holder.mGoalsScored.setText(String.valueOf(mPlayers.get(position).getGoalCount()));
         holder.mAssistsMade.setText(String.valueOf(mPlayers.get(position).getAssitCount()));

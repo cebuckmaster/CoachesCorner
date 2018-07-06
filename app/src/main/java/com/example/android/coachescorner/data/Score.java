@@ -1,7 +1,7 @@
 package com.example.android.coachescorner.data;
 
 /**
- * Created by cebuc on 5/6/2018.
+ * Score Object
  */
 
 public class Score {

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by cebuc on 4/22/2018.
+ * Content Provider Helper for Coaches Corner
  */
 
 public class CoachesCornerDBHelper extends SQLiteOpenHelper {
@@ -47,7 +47,7 @@ public class CoachesCornerDBHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_SCORE_TABLE = "DROP TABLE IF EXISTS " + CoachesCornerDBContract.ScoreDBEntry.TABLE_NAME;
 
     private static final String DATABASE_NAME = "CoachesCorner.db";
-    private static final int DATABASE_VER = 12;
+    private static final int DATABASE_VER = 14;
 
     public CoachesCornerDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VER);

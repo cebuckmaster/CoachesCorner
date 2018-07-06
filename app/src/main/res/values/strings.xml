@@ -23,6 +23,10 @@
     <string name="win_label">WIN</string>
     <string name="home_label">Home</string>
 
+    <string name="game_date">Game Date</string>
+    <string name="game_time">Game Time</string>
+    <string name="zero_game_timer">0:00</string>
+
     <string name="date_of_game">Date of Game</string>
     <string name="time_of_game">Time of Game</string>
     <string name="opp_name">Opponent Name</string>
@@ -68,6 +72,22 @@
     <string name="total_assists_label">Total Assists</string>
     <string name="total_saves_label">Total Saves</string>
 
+    <string name="must_select_date">You must select a Date for the Game</string>
+    <string name="must_select_time">You must select a Time for the Game</string>
+    <string name="must_select_oppt_name">You must enter in an Opponent Name</string>
+    <string name="undo">UNDO</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="score_card_file_name">ScoreCard.html</string>
+    <string name="starting_download">Starting Download...</string>
+    <string name="downloaded_at">Downloaded at:</string>
+    <string name="download_error">Something went wrong with the download</string>
+    <string name="picture_error">Error getting picture from camera</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="must_player_first_name">You must enter in a players first name</string>
+    <string name="must_player_last_name">You must enter in a players last name</string>
+
     <string-array name="gameformat">
         <item>@string/u6_under_game_formation</item>
         <item>5v5</item>
@@ -78,6 +98,16 @@
         <item>@string/u13_under_game_formation</item>
         <item>@string/u16_under_game_formation</item>
     </string-array>
+
+    <string-array name="reminder_time">
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>45 min</item>
+        <item>60 min</item>
+    </string-array>
+
+    <string name="reminder">Game Notification</string>
+    <string name="reminder_time_label">Minutes Before Game</string>
 
     <string-array name="half_quarter">
         <item>@string/game_half</item>
@@ -119,13 +149,32 @@
     <string name="gd_share_score_card">Share Score Card</string>
     <string name="gd_edit_game">Edit Game Details</string>
     <string name="gd_field_location">Field Location</string>
+    <string name="gd_get_rules">Get SAY Playing Rules</string>
+    <string name="gd_get_8u">8U Rules</string>
+    <string name="gd_get_10u">10U Rules</string>
+    <string name="gd_get_12u">12U Rules</string>
+    <string name="gd_get_14u">14U Rules</string>
+
+    <string name="download">Download</string>
+    <string name="write_file">This app needs access to your file storage so that it can write files.</string>
+
+    <!-- Content Descriptions -->
+    <string name="increase_opponent_score">Increase Opponent Score</string>
+    <string name="decrease_opponent_score">Decrease Opponent Score</string>
+    <string name="player_picture">Players Picture</string>
+    <string name="delete_trash_pic">Trash Can</string>
+    <string name="increase_goal">Increase Goals</string>
+    <string name="decrease_goal">Decrease Goals</string>
+    <string name="increase_assists">Increase Assists</string>
+    <string name="decrease_assists">Decrease Assists</string>
+    <string name="increase_saves">Increase Saves</string>
+    <string name="decrease_saves">Decrease Saves</string>
+
+
+
 
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="title_activity_field_location">Map</string>
-
-
-
-
 
     <!-- Widget Strings -->
     <string name="no_schedule_found">No Game Schedule Found</string>

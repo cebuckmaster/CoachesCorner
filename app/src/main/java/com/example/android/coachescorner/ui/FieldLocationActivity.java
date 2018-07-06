@@ -1,6 +1,5 @@
 package com.example.android.coachescorner.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -42,17 +41,16 @@ public class FieldLocationActivity extends FragmentActivity implements OnMapRead
 
         if (savedInstanceState != null) {
             mFieldLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-//            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         } else {
             Intent intentThatStartedThisActivity = getIntent();
             if (intentThatStartedThisActivity.hasExtra("Location")) {
                 mLocation = intentThatStartedThisActivity.getStringExtra("Location");
             }
             if (mLocation != null && !mLocation.isEmpty()) {
-                mFieldLocation = getLocationFromAddress(mLocation);
-            } else {
-                mFieldLocation = new LatLng(90, 0);
-                Toast.makeText(this, "No Field location was found.", Toast.LENGTH_SHORT).show();
+                if (!getLocationFromAddress(mLocation)) {
+                    mFieldLocation = new LatLng(90, 0);
+                    Toast.makeText(this, "No Field location was found.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -65,7 +63,6 @@ public class FieldLocationActivity extends FragmentActivity implements OnMapRead
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
-//            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, mFieldLocation);
             super.onSaveInstanceState(outState);
         }
@@ -98,25 +95,24 @@ public class FieldLocationActivity extends FragmentActivity implements OnMapRead
 
     }
 
-    private LatLng getLocationFromAddress(String strAddress) {
+    private boolean getLocationFromAddress(String strAddress) {
 
         Geocoder coder = new Geocoder(this);
         List<Address> address;
-        LatLng p1 = null;
 
         try {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
-                return null;
+                return false;
             }
             Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-
-        } catch (IOException e) {
+            mFieldLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            return true;
+        } catch (Exception e) {
             Log.e(FieldLocationActivity.class.getSimpleName(), "Error getting field location - " + e);
+            return false;
         }
 
-        return p1;
     }
 
 

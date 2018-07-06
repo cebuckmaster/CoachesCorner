@@ -17,8 +17,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -52,8 +50,6 @@ public class CoachesCornerActivity extends AppCompatActivity
             implements GameAdapter.GameAdapterOnClickHandler,
                 GameRecyclerItemTouchHelper.GameItemTouchHelperListener {
 
-
-
     private static final int ID_GAME_LOADER = 3;
 
     private static final String PARCELABLEKEY = "Games";
@@ -71,7 +67,6 @@ public class CoachesCornerActivity extends AppCompatActivity
     @BindView(R.id.app_bar_layout) AppBarLayout mAppBarLayout;
     @BindView(R.id.toolBar) Toolbar mToolBar;
 
-    //    private CoordinatorLayout mCoordinatorLayout;
     private String mTeamName;
     private Context mContext;
 
@@ -119,8 +114,6 @@ public class CoachesCornerActivity extends AppCompatActivity
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mGameRecyclerView.setLayoutManager(layoutManager);
-//        mGameRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mGameRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
         mGameAdapter = new GameAdapter(mContext, this);
         mGameRecyclerView.setAdapter(mGameAdapter);
@@ -140,9 +133,9 @@ public class CoachesCornerActivity extends AppCompatActivity
         MobileAds.initialize(mContext, "ca-app-pub-3940256099942544~3347511713");
 
         //Used for testing on a emulator
-//        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         //Used for my Real Test Device
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("A436B21D2FB9B512F8E02EC492650749").build();
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("A436B21D2FB9B512F8E02EC492650749").build();
         mAdView.loadAd(adRequest);
 
         if (savedInstanceState == null || !savedInstanceState.containsKey(PARCELABLEKEY)) {
@@ -160,7 +153,6 @@ public class CoachesCornerActivity extends AppCompatActivity
     protected void onRestart() {
         mTeamName = Utils.getTeamName(this);
         loadGames();
-//        mGameAdapter.notifyDataSetChanged();
         super.onRestart();
     }
 
@@ -319,17 +311,12 @@ public class CoachesCornerActivity extends AppCompatActivity
             final Game deleteGame = mGames.get(viewHolder.getAdapterPosition());
             final int deleteIndex = viewHolder.getAdapterPosition();
 
-
             mGameAdapter.removeGame(viewHolder.getAdapterPosition());
             Snackbar snackbar = Snackbar.make(mCoordinatorLayout, opponentName + " vs " + mTeamName + " removed from schedule!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
+            snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mGameAdapter.restoreGame(deleteGame, deleteIndex);
-//                        boolean addGameSuccess = Utils.addGameToDatabase(mContext, deleteGame);
-//                        if (!addGameSuccess) {
-//                            Log.d("CoachesCornerScheduleFragment", "Failed to add game back from UNDO");
-//                        }
                     }
                 });
                 snackbar.addCallback(new Snackbar.Callback() {
@@ -349,11 +336,8 @@ public class CoachesCornerActivity extends AppCompatActivity
                         mAdView.setVisibility(View.VISIBLE);
                     }
                 });
-
-
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
-//            }
         }
     }
 

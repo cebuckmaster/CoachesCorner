@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by cebuc on 5/27/2018.
+ * Dialog to update a users Goals, Assists, and Saves during a game
  */
 
 public class UpdatePlayerScoreDialogFragment extends DialogFragment {

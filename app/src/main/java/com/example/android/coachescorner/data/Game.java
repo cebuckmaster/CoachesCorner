@@ -3,10 +3,8 @@ package com.example.android.coachescorner.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
- * Created by cebuc on 4/22/2018.
+ * Game Object
  */
 
 public class Game implements Parcelable{
@@ -31,6 +29,7 @@ public class Game implements Parcelable{
         mHomeOrAway = homeOrAway;
         mGameNote = gameNote;
         mFieldLocation = fieldLocation;
+
     }
 
     public Game() {
@@ -47,6 +46,7 @@ public class Game implements Parcelable{
         mHomeOrAway = in.readString();
         mGameNote = in.readString();
         mFieldLocation = in.readString();
+
     }
 
     public void setGameDate(String gameDate) {
@@ -121,6 +121,7 @@ public class Game implements Parcelable{
         return mFieldLocation;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -137,7 +138,6 @@ public class Game implements Parcelable{
         parcel.writeString(mHomeOrAway);
         parcel.writeString(mGameNote);
         parcel.writeString(mFieldLocation);
-
     }
 
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {

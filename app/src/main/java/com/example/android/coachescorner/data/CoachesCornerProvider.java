@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Created by cebuc on 4/22/2018.
+ * Content Provider used to access the sqlite database for Coaches Corner
  */
 
 public class CoachesCornerProvider extends ContentProvider {

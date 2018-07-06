@@ -1,10 +1,8 @@
 package com.example.android.coachescorner.common;
 
-import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,10 +12,10 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.coachescorner.R;
 import com.example.android.coachescorner.data.CoachesCornerDBContract;
@@ -30,10 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
- * Created by cebuc on 4/28/2018.
+ * General utility modules used within Coaches Corner.
  */
 
 public class Utils {
@@ -256,7 +252,7 @@ public class Utils {
         editor.putInt(Utils.PREF_GAME_TIME, context.getResources().getInteger(R.integer.default_game_time));
         editor.putString(Utils.PREF_GAME_TYPE, halfQuarterArray[0]);
         editor.putInt(Utils.PREF_SUB_TIME, context.getResources().getInteger(R.integer.default_sub_time));
-        editor.commit();
+        editor.apply();
 
 
 
@@ -383,13 +379,19 @@ public class Utils {
         Uri selectedImage = uri;
         String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-        Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-        cursor.moveToFirst();
+        try {
+            Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
 
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-        return Uri.fromFile(new File(picturePath));
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            return Uri.fromFile(new File(picturePath));
+        } catch (Exception e) {
+            Log.e("From Utils", "Error capturing picture for player");
+            Toast.makeText(context, context.getString(R.string.picture_error), Toast.LENGTH_SHORT).show();
+        }
+        return null;
     }
 
 
@@ -398,4 +400,24 @@ public class Utils {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 0, outputStream);
         return outputStream.toByteArray();
     }
+
+    public static int getGameReminderMinutes(String reminderTimeSelected) {
+
+        if (isInt(reminderTimeSelected.substring(0, 2))) {
+            return Integer.parseInt(reminderTimeSelected.substring(0,2));
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static boolean isInt(String value) {
+        try {
+            int i = Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException er) {
+            return false;
+        }
+    }
+
 }

@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by cebuc on 4/29/2018.
+ * Game Adapter Used to display Games in RecyclerView
  */
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {

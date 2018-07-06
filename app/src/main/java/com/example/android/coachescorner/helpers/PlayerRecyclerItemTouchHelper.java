@@ -8,7 +8,7 @@ import android.view.View;
 import com.example.android.coachescorner.adapter.PlayerAdapter;
 
 /**
- * Created by cebuc on 4/28/2018.
+ * Item Touch Helper for Player Recycler View to support Slide Delete action
  */
 
 public class PlayerRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {

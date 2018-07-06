@@ -1,22 +1,24 @@
 package com.example.android.coachescorner.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,20 +48,29 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class GameDayActivity extends AppCompatActivity
         implements UpdatePlayerScoreDialogFragment.UpdatePlayerScoreDialogListener,
-            ScoreCardAdapter.ScoreCardAdapterOnClickHandler {
+            ScoreCardAdapter.ScoreCardAdapterOnClickHandler,
+            EasyPermissions.PermissionCallbacks {
 
     private Game mGame;
     private String mTeamName;
@@ -86,6 +98,7 @@ public class GameDayActivity extends AppCompatActivity
     @BindView(R.id.btn_start_timer) Button mBtnStartTimer;
     @BindView(R.id.tv_sub_timer) TextView mSubTimerTextView;
     @BindView(R.id.recyclerview_scorecard) RecyclerView mScoreCardRecyclerView;
+    @BindView(R.id.pb_rules_loading) ProgressBar mLoadingProgressBar;
     @BindView(R.id.game_day_adView) AdView mAdView;
 
 
@@ -98,11 +111,16 @@ public class GameDayActivity extends AppCompatActivity
     private static final String REMAIN_TIME = "Timer";
     private static final String REMAIN_SUBTIME = "SUBTimer";
 
+    private static final int WRITE_REQUEST_CODE = 600;
+
     private ScoreCardAdapter mScoreCardAdapter;
     public ArrayList<Player> mPlayers;
 
 
     private static final String EMAILFILEATTACHMENT = "ScoreCard.html";
+    private String mRuleFileName;
+    private String mRulesURLPath;
+    private String mRuleFullPathFileName;
 
 
     @Override
@@ -256,6 +274,11 @@ public class GameDayActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.gameday_menu, menu);
+
+        MenuItem rulesMenuItem = menu.findItem(R.id.gd_menu_get_rules_submenu);
+
+        inflater.inflate(R.menu.rules_submenu, rulesMenuItem.getSubMenu());
+
         return true;
     }
 
@@ -291,16 +314,39 @@ public class GameDayActivity extends AppCompatActivity
                 }
                 break;
             case R.id.gd_menu_field_location:
-                Intent intentFieldLocation = new Intent(mContext, FieldLocationActivity.class);
-                intentFieldLocation.putExtra("Location", mGame.getFieldLocation());
-                startActivity(intentFieldLocation);
+                if (mGame.getFieldLocation() != null && !mGame.getFieldLocation().isEmpty()) {
+                    Intent intentFieldLocation = new Intent(mContext, FieldLocationActivity.class);
+                    intentFieldLocation.putExtra("Location", mGame.getFieldLocation());
+                    startActivity(intentFieldLocation);
+                } else {
+                    Toast.makeText(mContext, "You must enter in a field location for this Game", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.gd_menu_edit_game_details:
                 Intent intentEditGame = new Intent(mContext, EditGameActivity.class);
                 intentEditGame.putExtra("Game", mGame);
                 startActivityForResult(intentEditGame, EDITPLAYERREQUESTCODE);
                 break;
-
+            case R.id.gd_menu_8u_rules:
+                mRuleFileName = "8UCondensedRules.pdf";
+                mRulesURLPath = "https://bsbproduction.s3.amazonaws.com/portals/1870/docs/rulebook/8ucondensedrules.pdf";
+                getRulesFile(mRulesURLPath);
+                break;
+            case R.id.gd_menu_10u_rules:
+                mRuleFileName = "10UCondensedRules.pdf";
+                mRulesURLPath = "https://bsbproduction.s3.amazonaws.com/portals/1870/docs/rulebook/10ucondensedrules.pdf";
+                getRulesFile(mRulesURLPath);
+                break;
+            case R.id.gd_menu_12u_rules:
+                mRuleFileName = "12UCondensedRules.pdf";
+                mRulesURLPath = "https://bsbproduction.s3.amazonaws.com/portals/1870/docs/rulebook/12ucondensedrules.pdf";
+                getRulesFile(mRulesURLPath);
+                break;
+            case R.id.gd_menu_14u_rules:
+                mRuleFileName = "14UCondensedRules.pdf";
+                mRulesURLPath = "https://bsbproduction.s3.amazonaws.com/portals/1870/docs/rulebook/14ucondensedrules.pdf";
+                getRulesFile(mRulesURLPath);
+                break;
             case android.R.id.home:
                 if (mGameCountDownTimer != null) {
                     mGameCountDownTimer.cancel();
@@ -358,7 +404,7 @@ public class GameDayActivity extends AppCompatActivity
                     mSubCountDownTimer.start();
                 } else {
                     mSubCountDownTimer.cancel();
-                    mSubTimerTextView.setText("0:00");
+                    mSubTimerTextView.setText(getString(R.string.zero_game_timer));
                 }
                 playNotification();
             }
@@ -612,6 +658,145 @@ public class GameDayActivity extends AppCompatActivity
 
         return currentTeamScore;
 
+    }
+
+
+    private boolean getRulesFile(String url) {
+
+        if (checkForSDCard()) {
+
+            if (EasyPermissions.hasPermissions(GameDayActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                new DownloadFileFromURL().execute(url);
+
+            } else {
+                EasyPermissions.requestPermissions(GameDayActivity.this, getString(R.string.write_file), WRITE_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+
+        } else {
+            Toast.makeText(mContext, "SD Card not found", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, GameDayActivity.this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        //Download the file once permission is granted
+        new DownloadFileFromURL().execute(mRulesURLPath);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(GameDayActivity.class.getSimpleName(), "Permission has been denied");
+    }
+
+
+    public boolean checkForSDCard() {
+        //Method to Check If SD Card is mounted or not
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void openRuleFile() {
+
+        try {
+            File rulesFile = new File(mRuleFullPathFileName);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Uri apkURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", rulesFile);
+            intent.setDataAndType(apkURI, "application/pdf");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Error Opening Rules File" + e.toString());
+            Toast.makeText(mContext, "Cannot open your selected file, Try again later", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public class DownloadFileFromURL extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingProgressBar.setVisibility(View.VISIBLE);
+            mLoadingProgressBar.setProgress(0);
+            Toast.makeText(mContext, getString(R.string.starting_download), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            int count;
+            try {
+
+                URL url = new URL(params[0]);
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                int lengthOfFile = connection.getContentLength();
+
+                InputStream inputStream = new BufferedInputStream(url.openStream(), 8192);
+
+                mRuleFullPathFileName = Environment.getExternalStorageDirectory() + File.separator + getString(R.string.app_name) + "/";
+
+                File directory = new File(mRuleFullPathFileName);
+
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                mRuleFullPathFileName = mRuleFullPathFileName + mRuleFileName;
+
+                OutputStream output = new FileOutputStream(mRuleFullPathFileName);
+
+                byte data[] = new byte[1024];
+
+                long total = 0;
+
+                while ((count = inputStream.read(data)) != -1) {
+                    total += count;
+                    output.write(data, 0, count);
+                    publishProgress((int) (total * 100 / lengthOfFile));
+                }
+
+                output.flush();
+                output.close();
+                inputStream.close();
+                return getString(R.string.downloaded_at) + mRuleFullPathFileName;
+            } catch (Exception e) {
+                Log.e(GameDayActivity.class.getSimpleName(), "Error Downloading Rules" + e.getMessage());
+            }
+
+            return getString(R.string.download_error);
+        }
+
+        @Override
+        protected void onPostExecute(String message) {
+
+            mLoadingProgressBar.setVisibility(View.INVISIBLE);
+
+            // Display File path after downloading
+            Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+            if (!message.equals(getString(R.string.download_error))) {
+                openRuleFile();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+            mLoadingProgressBar.setProgress(values[0]);
+        }
     }
 
 }

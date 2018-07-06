@@ -17,17 +17,18 @@
             android:id="@+id/game_card_delete_icon"
             android:layout_width="@dimen/ic_delete"
             android:layout_height="@dimen/ic_delete"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/padd_10"
-            android:src="@drawable/trash_can_white_24"/>
+            android:src="@drawable/trash_can_white_24"
+            android:contentDescription="@string/delete_trash_pic"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/padd_10"
-            android:layout_toRightOf="@+id/game_card_delete_icon"
+            android:layout_toEndOf="@+id/game_card_delete_icon"
             android:text="@string/delete"
             android:textColor="@color/colorText"
             android:textSize="13sp"/>

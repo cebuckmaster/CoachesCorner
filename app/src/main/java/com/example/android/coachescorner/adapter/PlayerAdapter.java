@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 /**
- * Created by cebuc on 4/25/2018.
+ * PlayerAdapter used to display each player in a RecyclerView
  */
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
@@ -104,7 +103,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 Log.e(PlayerAdapter.class.getSimpleName(), "Error trying to load Pic - " + e);
             }
         }
-        holder.mPlayerName.setText(mPlayers.get(position).getPlayerFirstName() + " " + mPlayers.get(position).getPlayerLastName());
+        String playerFullName = mPlayers.get(position).getPlayerFirstName() + " " + mPlayers.get(position).getPlayerLastName();
+        holder.mPlayerName.setText(playerFullName);
         holder.mPlayerNum.setText(mPlayers.get(position).getPlayerNum());
         holder.mGoalsScored.setText(String.valueOf(mPlayers.get(position).getGoalCount()));
         holder.mAssistsMade.setText(String.valueOf(mPlayers.get(position).getAssitCount()));

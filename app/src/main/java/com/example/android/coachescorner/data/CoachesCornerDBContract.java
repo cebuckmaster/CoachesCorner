@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by cebuc on 4/22/2018.
+ * Content Provider Contract for Coaches Corner
  */
 
 public class CoachesCornerDBContract {

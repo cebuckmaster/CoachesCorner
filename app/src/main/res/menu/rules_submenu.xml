@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/gd_menu_8u_rules"
+        android:title="@string/gd_get_8u"
+        app:showAsAction="never"/>
+    <item android:id="@+id/gd_menu_10u_rules"
+        android:title="@string/gd_get_10u"
+        app:showAsAction="never"/>
+    <item android:id="@+id/gd_menu_12u_rules"
+        android:title="@string/gd_get_12u"
+        app:showAsAction="never"/>
+    <item android:id="@+id/gd_menu_14u_rules"
+        android:title="@string/gd_get_14u"
+        app:showAsAction="never"/>
 </menu>
