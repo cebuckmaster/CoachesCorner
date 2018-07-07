@@ -194,9 +194,9 @@ public class CoachesCornerActivity extends AppCompatActivity
                 return true;
             case R.id.cc_menu_reset_all:
                 new AlertDialog.Builder(mContext)
-                        .setTitle("Confirm Reset All")
-                        .setMessage("Please confirm you want to reset all data?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.confirm_reset))
+                        .setMessage(getString(R.string.please_confirm_reset))
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 boolean success;
@@ -213,14 +213,14 @@ public class CoachesCornerActivity extends AppCompatActivity
                                     Log.d(CoachesCornerActivity.class.getSimpleName(), "Failed to delete all from Game Table");
                                 }
                                 Utils.clearTeamSettings(mContext);
-                                Toast.makeText(mContext, "Delete All Databases", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, getString(R.string.reset_all_content), Toast.LENGTH_SHORT).show();
                                 mGameAdapter.notifyDataSetChanged();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(mContext, "Nothing was reset", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, getString(R.string.no_reset), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();

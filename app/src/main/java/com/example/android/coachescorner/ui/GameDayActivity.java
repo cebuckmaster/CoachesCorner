@@ -319,7 +319,7 @@ public class GameDayActivity extends AppCompatActivity
                     intentFieldLocation.putExtra("Location", mGame.getFieldLocation());
                     startActivity(intentFieldLocation);
                 } else {
-                    Toast.makeText(mContext, "You must enter in a field location for this Game", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, getString(R.string.enter_field_location), Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.gd_menu_edit_game_details:
@@ -379,7 +379,7 @@ public class GameDayActivity extends AppCompatActivity
             public void onFinish() {
                 mBtnStartTimer.setEnabled(true);
                 mTimerTextView.setText(String.valueOf(mGameTime));
-                Toast.makeText(mContext, "Timer is up", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, getString(R.string.timer_up), Toast.LENGTH_SHORT).show();
             }
         }.start();
     }
@@ -398,7 +398,7 @@ public class GameDayActivity extends AppCompatActivity
             @Override
             public void onFinish() {
                 isSubTimerRunning = false;
-                Toast.makeText(mContext, "Sub Timer is up", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, getString(R.string.sub_timer_up), Toast.LENGTH_SHORT).show();
                 if (mRunningGameTimer > mSubTime) {
                     mSubCountDownTimer.cancel();
                     mSubCountDownTimer.start();
@@ -543,7 +543,7 @@ public class GameDayActivity extends AppCompatActivity
 
         int count = getContentResolver().update(updateUri, values, selection, null);
         if (count == 0) {
-            Toast.makeText(this, "Failed to update Game Table", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.failed_to_update_game), Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -673,7 +673,7 @@ public class GameDayActivity extends AppCompatActivity
             }
 
         } else {
-            Toast.makeText(mContext, "SD Card not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.sd_card_not_found), Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -720,7 +720,7 @@ public class GameDayActivity extends AppCompatActivity
             startActivity(intent);
         } catch (Exception e) {
             Log.e(getClass().getSimpleName(), "Error Opening Rules File" + e.toString());
-            Toast.makeText(mContext, "Cannot open your selected file, Try again later", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, getString(R.string.file_warning), Toast.LENGTH_SHORT).show();
         }
 
     }

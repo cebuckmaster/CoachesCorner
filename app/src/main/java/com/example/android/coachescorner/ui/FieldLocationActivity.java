@@ -49,7 +49,7 @@ public class FieldLocationActivity extends FragmentActivity implements OnMapRead
             if (mLocation != null && !mLocation.isEmpty()) {
                 if (!getLocationFromAddress(mLocation)) {
                     mFieldLocation = new LatLng(90, 0);
-                    Toast.makeText(this, "No Field location was found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.no_field_found), Toast.LENGTH_SHORT).show();
                 }
             }
         }

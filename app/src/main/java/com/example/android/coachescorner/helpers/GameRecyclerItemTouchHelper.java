@@ -56,11 +56,6 @@ public class GameRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
         mListener.onSwiped(viewHolder, direction, viewHolder.getAdapterPosition());
     }
 
-    @Override
-    public int convertToAbsoluteDirection(int flags, int layoutDirection) {
-        return super.convertToAbsoluteDirection(flags, layoutDirection);
-    }
-
     public interface GameItemTouchHelperListener {
         void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position);
     }
